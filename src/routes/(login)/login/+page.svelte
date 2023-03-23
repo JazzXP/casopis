@@ -3,7 +3,7 @@
   import { deserialize } from "$app/forms";
   import { goto } from "$app/navigation";
   import dayjs from "dayjs";
-  import authStore from "$lib/stores/auth";
+  import localFetch from "$lib/fetch";
 
   let password = "";
   let error = "";
@@ -11,28 +11,16 @@
   async function handleLogin() {
     const formData = new FormData();
     formData.append("password", password);
-    const resp = await fetch("?/login", {
+    const resp = await localFetch("?/login", {
       method: "POST",
       body: formData,
     });
     const result = deserialize(await resp.text());
     console.log(result.type);
-    if (result.type === "success") {
-      if (result.data?.["success"] === true) {
-        authStore.update((state) => ({
-          ...state,
-          initializing: false,
-          token: result.data?.["token"],
-        }));
-        goto(`/${dayjs(Date.now()).format("YYYYMMDD")}`);
-      } else {
-        error = "Invalid password";
-        authStore.update((state) => ({
-          ...state,
-          initializing: true,
-          token: undefined,
-        }));
-      }
+    if (result.type === "success" && result.data?.body["success"] === true) {
+      goto(`/${dayjs(Date.now()).format("YYYYMMDD")}`);
+    } else {
+      error = "Invalid password";
     }
   }
 </script>

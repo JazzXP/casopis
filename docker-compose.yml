@@ -11,3 +11,5 @@ services:
       - 3000:3000
     volumes:
       - ./public/files:/app/public/files/
+      - ./jwtkey_private.pem:/app/jwtkey_private.pem:ro
+      - ./jwtkey_public.pem:/app/jwtkey_public.pem:ro

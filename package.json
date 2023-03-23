@@ -26,7 +26,11 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@bytemd/plugin-gemoji": "^1.20.2",
+		"@bytemd/plugin-highlight": "^1.20.2",
+		"@bytemd/plugin-medium-zoom": "^1.20.2",
 		"@types/jsonwebtoken": "^9.0.1",
+		"cookie": "^0.5.0",
 		"jsonwebtoken": "^9.0.0",
 		"polka": "^0.5.2",
 		"serve-static": "^1.15.0",
