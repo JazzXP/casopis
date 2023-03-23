@@ -1,0 +1,13 @@
+version: "3"
+services:
+  casopis:
+    image: casopis
+    environment:
+      - ORIGIN=http://localhost:3000
+      - BODY_SIZE_LIMIT=0
+      - PASSWORD=abc123
+      # - FILEPATH=/app/client/files
+    ports:
+      - 3000:3000
+    volumes:
+      - ./public/files:/app/public/files/

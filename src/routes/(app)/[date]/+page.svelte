@@ -1,15 +1,26 @@
 <script lang="ts">
   import "bytemd/dist/index.css";
-  import Editor from "../../../node_modules/bytemd/svelte/editor.svelte";
+  import Editor from "../../../../node_modules/bytemd/svelte/editor.svelte";
   import gfm from "@bytemd/plugin-gfm";
   import { deserialize } from "$app/forms";
   import type { PageData } from "./$types";
   import { page } from "$app/stores";
+  import authStore from "$lib/stores/auth";
+  import { onDestroy } from "svelte";
 
   export let data: PageData;
   let value: string;
+  let token: string;
 
   $: value = data.md;
+
+  const unsubscribe = authStore.subscribe((state) => {
+    if (!state.initializing && state.token !== undefined) {
+      token = state.token;
+    }
+  });
+
+  onDestroy(unsubscribe);
 
   const plugins = [
     gfm(),
@@ -29,8 +40,15 @@
         const resp = await fetch("?/upload", {
           method: "POST",
           body: formData,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
         const result = deserialize(await resp.text());
+        // @ts-ignore
+        if (result?.data?.["success"] === false) {
+          return { url: "" };
+        }
         return {
           // @ts-ignore
           url: result.data.filename,
@@ -46,7 +64,15 @@
     const resp = await fetch("?/writeMD", {
       method: "POST",
       body: formData,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
+    const result = deserialize(await resp.text());
+    // @ts-ignore
+    if (result?.data?.["success"] === false) {
+      // TODO: Show some sort of error?
+    }
   }
 </script>
 

@@ -2,11 +2,15 @@ import { writeFile, mkdir, readFile } from 'fs/promises';
 
 import sharp from 'sharp';
 import type { PageServerLoad, RequestEvent } from './$types';
+import jwt from 'jsonwebtoken';
 
-const path = process.env.FILEPATH ?? './files';
+const path = process.env.FILEPATH ?? './public/files';
 
 export const actions = {
   upload: async ({ request }: RequestEvent) => {
+    if (!(await validateToken(request.headers.get('Authorization')))) {
+      return { success: false, message: 'Invalid Token' };
+    }
     const data = await request.formData();
     const file = data.get('file') as File;
     const dateString = data.get('date');
@@ -19,6 +23,9 @@ export const actions = {
     return { success: true, filename: `/files/${dateString}/${filename}.${ext}` };
   },
   writeMD: async ({ request }: RequestEvent) => {
+    if (!(await validateToken(request.headers.get('Authorization')))) {
+      return { success: false, message: 'Invalid Token' };
+    }
     const data = await request.formData();
     const md = data.get('md') as string;
     try {
@@ -38,7 +45,17 @@ export const load: PageServerLoad = async ({ params }) => {
     const mdFile = await readFile(`${path}/${params.date}/index.md`);
     return { success: true, md: mdFile.toString() };
   } catch {
-    return { success: true, md: 'test' };
+    return { success: true, md: 'test' }; // TODO: Template
+  }
+};
+
+const validateToken = async (authHeader: string | null) => {
+  if (authHeader === null) return false;
+
+  try {
+    return jwt.verify(authHeader!.substring(7), await readFile(`./jwtkey_public.pem`), { algorithms: ['RS512'] }) !== null;
+  } catch {
+    return false;
   }
 };
 
