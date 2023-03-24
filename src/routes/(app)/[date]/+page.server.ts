@@ -3,6 +3,7 @@ import { writeFile, mkdir, readFile } from 'fs/promises';
 import sharp from 'sharp';
 import type { PageServerLoad, RequestEvent } from './$types';
 import { existsSync } from 'fs';
+import dayjs from "dayjs";
 
 const path = process.env.FILEPATH ?? './public/files';
 
@@ -36,16 +37,17 @@ export const actions = {
 
 export const load: PageServerLoad = async ({ params }) => {
   try {
+    const today = dayjs(Date.now()).format("YYYYMMDD");
     let mdFile: Buffer;
     if (existsSync(`${path}/${params.date}/index.md`)) {
       mdFile = await readFile(`${path}/${params.date}/index.md`);
       return { success: true, md: mdFile.toString() };
     }
-    else if (existsSync('./client/template.md')) {
+    else if (today === params.date && existsSync('./client/template.md')) {
       mdFile = await readFile('./client/template.md');
       return { success: true, md: mdFile.toString() };
     }
-    return { success: true, md: 'No file to read' };
+    return { success: true, md: 'No entry' };
   } catch (err) {
     if (
       typeof err === 'object' &&

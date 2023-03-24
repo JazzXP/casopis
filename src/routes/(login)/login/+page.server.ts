@@ -1,7 +1,6 @@
 import type { RequestEvent } from "./$types";
 import jwt from 'jsonwebtoken';
 import { readFile } from "fs/promises";
-import { goto } from "$app/navigation";
 
 export const actions = {
   login: async ({ request, cookies }: RequestEvent) => {

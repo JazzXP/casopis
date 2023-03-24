@@ -1,7 +1,7 @@
 version: "3"
 services:
   casopis:
-    image: casopis
+    image: ghcr.io/jazzxp/casopis:latest
     environment:
       - ORIGIN=http://localhost:3000
       - BODY_SIZE_LIMIT=0
