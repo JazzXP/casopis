@@ -32,11 +32,6 @@ export const actions = {
 
     return { success: true };
   },
-  default: () => {
-    return {
-      success: false
-    };
-  }
 };
 
 export const load: PageServerLoad = async ({ params }) => {

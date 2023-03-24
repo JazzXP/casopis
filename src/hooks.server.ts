@@ -10,7 +10,6 @@ export const handle = (async ({ event, resolve }) => {
       throw redirect(300, '/login');
     }
   }
-  console.log(event.url);
   const response = await resolve(event);
   return response;
 }) satisfies Handle;
