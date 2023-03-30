@@ -1,3 +1,5 @@
-
-[ ] Pages not today as View only
 [ ] Mobile Layout
+[ ] Editing old posts
+[ ] Tests for image upload
+[ ] Refactor login and add tests
+[ ] Styling
