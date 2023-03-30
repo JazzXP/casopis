@@ -1,4 +1,4 @@
-# Časopis
+# <img src="./static/favicon.png" width=64> Časopis
 [![CI](https://github.com/JazzXP/casopis/actions/workflows/main.yml/badge.svg)](https://github.com/JazzXP/casopis/actions/workflows/main.yml)
 
 Technically Czech for Magazine, I kinda like how it sounds.
