@@ -18,7 +18,6 @@ export const actions = {
         }
       };
     };
-    console.log('Bad Password');
     return { body: { success: false } };
   },
 };
