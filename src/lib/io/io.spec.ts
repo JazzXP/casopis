@@ -6,6 +6,9 @@ import fs, { PathLike } from 'fs';
 import fsPromise from 'fs/promises';
 
 describe('io functions', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
   test('writes a file', async () => {
     const formData = new FormData();
     formData.append("md", 'MD File');
