@@ -1,3 +1,6 @@
+- [X] List previous entries
+  - [ ] Navigate list
+- [X] Home screen
 - [ ] Mobile Layout
 - [ ] Editing old posts
 - [ ] Tests for image upload
