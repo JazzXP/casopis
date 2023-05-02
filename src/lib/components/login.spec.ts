@@ -2,7 +2,9 @@
 // import Login from './login.svelte';
 // import { render, screen, fireEvent } from "@testing-library/svelte";
 
-// describe("login component", () => {
+describe("login component", () => {
+  test('dummy', () => { });
+});
 //   xtest("Should set password", async () => {
 //     let pword = '';
 //     const handleLogin = (password: string) => { pword = password; };
