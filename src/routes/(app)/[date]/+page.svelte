@@ -12,11 +12,16 @@
   import { page } from "$app/stores";
   import localFetch from "$lib/fetch";
   import "highlight.js/styles/default.css";
+  import Topics from "$lib/components/topics.svelte";
+  import type { Category } from "$lib/interfaces/topics";
 
   export let data: PageData;
   let value: string;
+  let randomTopicText: string;
+  let topics: Category[];
 
   $: value = data.md;
+  $: topics = data.topics;
 
   const plugins = [
     gfm(),
@@ -71,7 +76,9 @@
 
 <div class="main">
   <div class="mdeditor">
-    <div><button on:click={save}>Save</button></div>
+    <div>
+      <button on:click={save}>Save</button><Topics categories={topics} />
+    </div>
     {#if $page.params.date === dayjs(Date.now()).format("YYYYMMDD")}
       <Editor {value} {plugins} on:change={handleChange} {uploadImages} />
     {:else}
