@@ -1,20 +1,20 @@
 <script lang="ts">
-  import { InlineCalendar } from "svelte-calendar";
-  import dayjs from "dayjs";
-  import { goto } from "$app/navigation";
-  import { page } from "$app/stores";
-  import type { Entry } from "$lib/io/io";
+  import { InlineCalendar } from 'svelte-calendar';
+  import dayjs from 'dayjs';
+  import { goto } from '$app/navigation';
+  import { page } from '$app/stores';
+  import type { Entry } from '$lib/io/io';
 
   export let store: any;
   $: if ($store) {
-    goto(`/${dayjs($store?.selected).format("YYYYMMDD")}`);
+    goto(`/${dayjs($store?.selected).format('YYYYMMDD')}`);
   }
 
   const entries = $page.data.entries as Entry[];
 
   const theme = {
     calendar: {
-      width: "300px",
+      width: '300px',
     },
   };
 </script>

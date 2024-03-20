@@ -2,7 +2,7 @@
 // vi.mock('fs/promises');
 // vi.mock('fs');
 // import { jest } from '@jest/globals';
-import { test, describe, afterEach, beforeEach, vi, expect } from 'vitest'
+import { test, describe, afterEach, beforeEach, vi, expect } from 'vitest';
 import { entries, loadMD, writeMD } from './io';
 import fs, { type PathLike } from 'fs';
 import fsPromise from 'fs/promises';
@@ -17,12 +17,15 @@ describe('io functions', () => {
   });
   test('writes a file', async () => {
     const formData = new FormData();
-    formData.append("md", 'MD File');
+    formData.append('md', 'MD File');
     formData.append('date', '20230101');
     fsPromise.writeFile = vi.fn();
     const spy = vi.spyOn(fsPromise, 'writeFile');
 
-    await writeMD({ ...event, request: { ...event.request, formData: () => Promise.resolve(formData) } });
+    await writeMD({
+      ...event,
+      request: { ...event.request, formData: () => Promise.resolve(formData) },
+    });
 
     expect(spy).toBeCalledWith('./public/files/20230101/index.md', 'MD File');
     spy.mockRestore();
@@ -89,32 +92,33 @@ describe('io functions', () => {
     (fsPromise.readdir as any).mockReturnValue(['20230101', '20230102', '20230103']);
     fs.existsSync = vi.fn(() => true);
     (fsPromise.open as any) = vi.fn(() => ({
-      readLines: vi.fn(() => ['# title', '![img.jpg](/files/img.jpg)'])
+      readLines: vi.fn(() => ['# title', '![img.jpg](/files/img.jpg)']),
     }));
     (fsPromise.stat as any) = vi.fn(() => ({ isDirectory: () => true }));
 
     const resp = await entries('');
-    expect(resp).toStrictEqual([{
-      path: '20230103',
-      image: '/files/img.jpg',
-      subject: 'title',
-      date: '20230103',
-      formattedDate: '03/01/2023',
-    },
-    {
-      path: '20230102',
-      image: '/files/img.jpg',
-      subject: 'title',
-      date: '20230102',
-      formattedDate: '02/01/2023',
-    },
-    {
-      path: '20230101',
-      image: '/files/img.jpg',
-      subject: 'title',
-      date: '20230101',
-      formattedDate: '01/01/2023',
-    }
+    expect(resp).toStrictEqual([
+      {
+        path: '20230103',
+        image: '/files/img.jpg',
+        subject: 'title',
+        date: '20230103',
+        formattedDate: '03/01/2023',
+      },
+      {
+        path: '20230102',
+        image: '/files/img.jpg',
+        subject: 'title',
+        date: '20230102',
+        formattedDate: '02/01/2023',
+      },
+      {
+        path: '20230101',
+        image: '/files/img.jpg',
+        subject: 'title',
+        date: '20230101',
+        formattedDate: '01/01/2023',
+      },
     ]);
   });
 });
@@ -123,8 +127,8 @@ const event = {
   cookies: {
     get: () => '',
     getAll: () => [],
-    set: () => { },
-    delete: () => { },
+    set: () => {},
+    delete: () => {},
     serialize: () => '',
   },
   fetch: () => Promise.resolve(new Response()),
@@ -134,9 +138,8 @@ const event = {
   platform: '',
   request: new Request('http://blank.com'),
   route: { id: null },
-  setHeaders: () => { },
+  setHeaders: () => {},
   url: new URL('http://a.com'),
   isDataRequest: false,
   isSubRequest: false,
 };
-

@@ -1,8 +1,8 @@
-import type { PageServerLoad, RequestEvent } from "./$types";
-import dayjs from "dayjs";
-import { loadMD, uploadImage, writeMD, entries, loadTopics } from "$lib/io/io";
+import type { PageServerLoad, RequestEvent } from './$types';
+import dayjs from 'dayjs';
+import { loadMD, uploadImage, writeMD, entries, loadTopics } from '$lib/io/io';
 
-const path = process.env.FILEPATH ?? "./public/files";
+const path = process.env.FILEPATH ?? './public/files';
 
 export const actions = {
   upload: async (event: RequestEvent) => uploadImage(event),
@@ -10,7 +10,7 @@ export const actions = {
 };
 
 export const load: PageServerLoad = async ({ params }) => {
-  const today = dayjs(Date.now()).format("YYYYMMDD");
+  const today = dayjs(Date.now()).format('YYYYMMDD');
   const md = await loadMD(params.date, today);
   const allEntries = await entries(path);
   if (md) {
@@ -21,5 +21,5 @@ export const load: PageServerLoad = async ({ params }) => {
       topics: await loadTopics(),
     };
   }
-  return { success: false, md: "Unknown Error", topics: [] };
+  return { success: false, md: 'Unknown Error', topics: [] };
 };

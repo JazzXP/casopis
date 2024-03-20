@@ -1,26 +1,26 @@
 <!-- Login.svelte -->
 <script lang="ts">
-  import { deserialize } from "$app/forms";
-  import { goto } from "$app/navigation";
-  import dayjs from "dayjs";
-  import localFetch from "$lib/fetch";
+  import { deserialize } from '$app/forms';
+  import { goto } from '$app/navigation';
+  import dayjs from 'dayjs';
+  import localFetch from '$lib/fetch';
 
-  import Login from "$lib/components/login.svelte";
+  import Login from '$lib/components/login.svelte';
 
-  let error = "";
+  let error = '';
 
   async function handleLogin(password: string) {
     const formData = new FormData();
-    formData.append("password", password);
-    const resp = await localFetch("?/login", {
-      method: "POST",
+    formData.append('password', password);
+    const resp = await localFetch('?/login', {
+      method: 'POST',
       body: formData,
     });
     const result = deserialize(await resp.text());
-    if (result.type === "success" && result.data?.body["success"] === true) {
-      goto(`/${dayjs(Date.now()).format("YYYYMMDD")}`);
+    if (result.type === 'success' && result.data?.body['success'] === true) {
+      goto(`/${dayjs(Date.now()).format('YYYYMMDD')}`);
     } else {
-      error = "Invalid password";
+      error = 'Invalid password';
     }
   }
 </script>

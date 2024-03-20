@@ -1,8 +1,8 @@
-import { redirect, type Handle } from '@sveltejs/kit';
+import { redirect } from '@sveltejs/kit';
 import { readFile } from 'fs/promises';
 import jwt from 'jsonwebtoken';
 
-export const handle = (async ({ event, resolve }) => {
+export const handle = async ({ event, resolve }) => {
   if (!event.url.pathname.startsWith('/login')) {
     // Check cookie
     const token = event.cookies.get('token');
@@ -12,13 +12,15 @@ export const handle = (async ({ event, resolve }) => {
   }
   const response = await resolve(event);
   return response;
-}) satisfies Handle;
+};
 
 const validateToken = async (token?: string) => {
   if (token === undefined || token.length === 0) return false;
 
   try {
-    return jwt.verify(token, await readFile(`./jwtkey_public.pem`), { algorithms: ['RS512'] }) !== null;
+    return (
+      jwt.verify(token, await readFile(`./jwtkey_public.pem`), { algorithms: ['RS512'] }) !== null
+    );
   } catch (err) {
     console.error(err);
     console.error('Invalid Token');

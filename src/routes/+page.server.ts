@@ -1,5 +1,5 @@
-import { entries } from "$lib/io/io";
-import type { PageServerLoad } from "./$types";
+import { entries } from '$lib/io/io';
+import type { PageServerLoad } from './$types';
 
 const path = process.env.FILEPATH ?? './public/files';
 

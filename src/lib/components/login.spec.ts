@@ -1,6 +1,6 @@
-import {test} from 'vitest'
+import { test } from 'vitest';
 
-  test('dummy', () => { });
+test('dummy', () => {});
 
 //   xtest("Should set password", async () => {
 //     let pword = '';

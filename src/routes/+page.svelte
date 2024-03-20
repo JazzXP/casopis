@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { goto } from "$app/navigation";
-  import { page } from "$app/stores";
-  import type { Entry } from "$lib/io/io";
-  import dayjs from "dayjs";
-  let today = dayjs(Date.now()).format("YYYYMMDD");
+  import { goto } from '$app/navigation';
+  import { page } from '$app/stores';
+  import type { Entry } from '$lib/io/io';
+  import dayjs from 'dayjs';
+  let today = dayjs(Date.now()).format('YYYYMMDD');
   const entries = $page.data.entries as Entry[];
 </script>
 
@@ -12,7 +12,7 @@
   {#each entries.slice(0, 50) as entry}
     <article>
       <a href={`/${entry.date}`} on:click={() => goto(`/${entry.date}`)}
-        >{#if entry.image !== ""}
+        >{#if entry.image !== ''}
           <img src={entry.image} alt="thumbnail for {entry.subject}" />
         {:else}
           <div class="empty-img" />

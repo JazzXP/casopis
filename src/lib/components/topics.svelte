@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { Category } from "$lib/interfaces/topics";
-  import { slide } from "svelte/transition";
+  import type { Category } from '$lib/interfaces/topics';
+  import { slide } from 'svelte/transition';
 
   export let categories: Category[];
   let topics: string[];
@@ -8,7 +8,7 @@
   let randomTopicsVisible = false;
 
   $: topics =
-    selectedCategory === "Random"
+    selectedCategory === 'Random'
       ? categories[Math.floor(Math.random() * categories.length)]?.topics
       : categories.find((val) => val.name === selectedCategory)?.topics || [];
   $: randomTopicText = topics[Math.floor(Math.random() * topics.length)];

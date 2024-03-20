@@ -14,7 +14,7 @@
 </form>
 
 <style>
-  input[type="password"] {
+  input[type='password'] {
     padding: 0.5rem;
     border-radius: 0.25rem;
     border: none;
@@ -25,7 +25,7 @@
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   }
 
-  button[type="submit"] {
+  button[type='submit'] {
     background-color: #333;
     color: #fff;
     padding: 0.5rem;
