@@ -37,7 +37,7 @@ export async function uploadImage({ request }: RequestEvent) {
   const ext = re.exec(file.name)?.[1] ?? "";
   const filename = file.name
     .substring(0, file.name.length - (ext?.length ?? 0) - 1)
-    .replaceAll(/[\s\/\.\(\)\[\]]/g, "");
+    .replaceAll(/[\s/.()[\]]/g, "");
   await fs.mkdir(`${filePath}/${dateString}`, { recursive: true });
   await fs.writeFile(
     `${filePath}/${dateString}/${filename}.${ext}`,
@@ -82,8 +82,8 @@ export async function entries(rootPath: string) {
         for await (const line of handle.readLines()) {
           if (subject.length === 0 && line.startsWith("# ")) {
             subject = line;
-          } else if (/\!\[.*\]\(.*\)/.test(line)) {
-            image = /\!\[.*\]\((.*)\)/.exec(line)?.[1] ?? "";
+          } else if (/!\[.*\]\(.*\)/.test(line)) {
+            image = /!\[.*\]\((.*)\)/.exec(line)?.[1] ?? "";
           }
         }
         entries.push({

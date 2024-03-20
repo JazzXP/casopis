@@ -9,6 +9,7 @@ export const actions = {
     if (data.get('password') === process.env.PASSWORD) {
       const token = jwt.sign({ loggedIn: true, }, signKey, { algorithm: 'RS512', expiresIn: '30 days', });
       cookies.set('token', token, {
+        path: '/',
         maxAge: 60 * 60 * 24 * 30, // one month
       });
       return {

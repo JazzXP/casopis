@@ -1,10 +1,7 @@
-// import '@testing-library/jest-dom';
-// import Login from './login.svelte';
-// import { render, screen, fireEvent } from "@testing-library/svelte";
+import {test} from 'vitest'
 
-describe("login component", () => {
   test('dummy', () => { });
-});
+
 //   xtest("Should set password", async () => {
 //     let pword = '';
 //     const handleLogin = (password: string) => { pword = password; };
